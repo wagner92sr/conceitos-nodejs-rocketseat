@@ -27,20 +27,30 @@ function checksExistsUserAccount(request, response, next) {
 app.post('/users', (request, response) => {
   const { name, username } = request.body;
 
-  users.push({
+  const userAlreadyExists = users.some(
+    (user) => user.username === username
+  );
+
+  if(userAlreadyExists){
+    return response.status(400).json({error: "User already exists!"});
+  }
+
+  const user = ({
     id: uuidv4(),
     name,
     username,
     todos: []
-  })
+  });
 
-  return response.status(201).send();
+  users.push(user)
+
+  return response.status(201).json(user);
 });
 
 app.get('/todos', checksExistsUserAccount, (request, response) => {
   // Complete aqui
   const { user } = request;
-  return response.json(user.todos)
+  return response.status(200).json(user.todos)
   //return response.json("teste")
 });
 
@@ -55,10 +65,10 @@ app.post('/todos', checksExistsUserAccount, (request, response) => {
     done: false,
     deadline: new Date(deadline),
     created_at: new Date()
-  }
+  };
 
   user.todos.push(todo);
-  return response.status(201).send();
+  return response.status(201).json(todo);
 
 });
 
