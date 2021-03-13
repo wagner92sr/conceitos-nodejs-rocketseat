@@ -17,3 +17,5 @@ Tudo isso para cada usuário em específico (o username será passado pelo heade
 O template da aplicação foi obtido no repositório https://github.com/rocketseat-education/ignite-template-conceitos-do-nodejs
 
 Ao baixar este repositório, deve ser executado o comando "yarn" para instalar todas as dependências da aplicação.
+
+Para rodar os testes unitários, deve ser executado o comando "yarn test"
